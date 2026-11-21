@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EEF7FD">
+<meta name="description" content="Sumly is a free math quiz and sums app for Android. Download it and play offline.">
+<title>Sumly for Android: math quiz and sums</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sumly">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF7FD; --ink:#1F3B5C; --muted:#52708F; --accent:#2F73C9;
+  --glass:rgba(255,255,255,.5); --glass-b:rgba(255,255,255,.85);
+  --sh-d:rgba(120,165,205,.45); --sh-l:rgba(255,255,255,.95); --blob:1; color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#152234; --ink:#E6F1FB; --muted:#9DB5CD; --accent:#8EC5F5;
+    --glass:rgba(255,255,255,.07); --glass-b:rgba(255,255,255,.15);
+    --sh-d:rgba(0,0,0,.5); --sh-l:rgba(255,255,255,.05); --blob:.5; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#152234; --ink:#E6F1FB; --muted:#9DB5CD; --accent:#8EC5F5;
+  --glass:rgba(255,255,255,.07); --glass-b:rgba(255,255,255,.15);
+  --sh-d:rgba(0,0,0,.5); --sh-l:rgba(255,255,255,.05); --blob:.5; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5;
+  font-family:"Outfit",ui-rounded,"SF Pro Rounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.bg{position:fixed;inset:0;opacity:var(--blob);pointer-events:none;
+  background:
+   radial-gradient(60% 40% at 10% 6%,#CBE5FC,transparent 72%),
+   radial-gradient(50% 36% at 95% 30%,#DAF4FD,transparent 72%),
+   radial-gradient(60% 38% at 70% 98%,#F8DDB3,transparent 72%)}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:28px 20px 40px}
+.glass{background:var(--glass);border:1px solid var(--glass-b);border-radius:28px;
+  -webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);
+  box-shadow:0 14px 34px -16px var(--sh-d),inset 0 1px 0 var(--glass-b)}
+.brand{font-weight:700;font-size:20px;margin:0 0 28px}
+.hero{display:grid;gap:34px;align-items:center;margin-bottom:34px}
+h1{font-size:clamp(38px,9vw,60px);line-height:1.04;letter-spacing:-.02em;margin:0 0 14px}
+.lead{font-size:19px;color:var(--muted);margin:0 0 26px;max-width:30em}
+button{font:inherit;color:inherit;border:0;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:60px;padding:0 30px;border-radius:22px;
+  font-size:20px;font-weight:700;color:#fff;width:100%;max-width:380px;
+  background:linear-gradient(135deg,#2A69BD,#4E96E3);box-shadow:0 16px 28px -14px rgba(42,105,189,.85),inset 0 1px 0 rgba(255,255,255,.4)}
+.cta:active{transform:scale(.985)}
+.cta:disabled{opacity:.6}
+.cta svg{width:24px;height:24px}
+a.cta{text-decoration:none}
+.alt{display:inline-block;margin-top:16px;color:var(--accent);font-weight:600;font-size:17px;min-height:44px;line-height:44px}
+.meta{margin:12px 0 0;font-size:15px;color:var(--muted)}
+.status{min-height:24px;margin:10px 0 0;font-weight:600;font-size:16px}
+.phone{justify-self:center;width:min(78vw,280px);padding:16px;border-radius:40px}
+.screen{border-radius:26px;background:var(--bg);padding:18px 14px;box-shadow:inset 4px 4px 10px var(--sh-d),inset -4px -4px 10px var(--sh-l)}
+.bar{height:8px;border-radius:9px;background:var(--glass-b);margin-bottom:16px;overflow:hidden}
+.bar i{display:block;width:60%;height:100%;border-radius:9px;background:linear-gradient(90deg,#2F73C9,#7FD3F0)}
+.pq{font-size:34px;font-weight:700;text-align:center;margin:10px 0 16px}
+.po{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.po span{display:block;text-align:center;font-weight:700;font-size:20px;padding:14px 0;border-radius:16px;background:var(--bg);
+  box-shadow:4px 4px 9px var(--sh-d),-4px -4px 9px var(--sh-l)}
+.po .ok{box-shadow:inset 3px 3px 7px var(--sh-d),inset -3px -3px 7px var(--sh-l);color:var(--accent)}
+.feats{display:grid;gap:16px;margin-bottom:34px}
+.feat{padding:22px}
+h2{font-size:22px;margin:0 0 6px}
+.feat p,.steps p{margin:0;color:var(--muted);font-size:17px}
+.steps{padding:26px 22px;margin-bottom:26px}
+.steps ol{margin:14px 0 0;padding-left:22px;display:grid;gap:10px;font-size:17px}
+.steps li::marker{color:var(--accent);font-weight:700}
+.foot{text-align:center;color:var(--muted);font-size:15px}
+@media (min-width:760px){
+  .hero{grid-template-columns:1.2fr .8fr}
+  .feats{grid-template-columns:repeat(3,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<div class="wrap">
+  <p class="brand">Sumly</p>
+  <section class="hero">
+    <div>
+      <h1>Math practice that fits in your pocket.</h1>
+      <p class="lead">Quick quizzes and typed sums for Android. No account, no ads, and it works without internet.</p>
+      <button class="cta" id="inst" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+        Install app
+      </button>
+      <a class="alt" href="sumly.html">or play in your browser</a>
+      <p class="meta">Free · 16 KB · works offline once installed</p>
+      <p class="status" id="st" role="status" aria-live="polite"></p>
+    </div>
+    <div class="glass phone" aria-hidden="true">
+      <div class="screen">
+        <div class="bar"><i></i></div>
+        <div class="pq">7 × 8 = ?</div>
+        <div class="po"><span>54</span><span class="ok">56</span><span>48</span><span>64</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="feats">
+    <div class="glass feat"><h2>Quiz mode</h2><p>Ten questions, four choices each. Tap the right answer and see your score.</p></div>
+    <div class="glass feat"><h2>Sums mode</h2><p>Type your own answers on a big keypad. Add, subtract, multiply or divide.</p></div>
+    <div class="glass feat"><h2>Private and offline</h2><p>Nothing is sent anywhere. Only your best scores stay on your phone.</p></div>
+  </section>
+
+  <section class="glass steps">
+    <h2>Install in three steps</h2>
+    <ol>
+      <li>Open this page in <b>Chrome</b> on your Android phone.</li>
+      <li>Tap <b>Install app</b> and confirm. Sumly lands on your home screen.</li>
+      <li>Open it like any other app. It works offline.</li>
+    </ol>
+  </section>
+  <p class="foot">Free to use. Made for Android phones and tablets.</p>
+</div>
+<script>
+(function(){
+'use strict';
+const btn=document.getElementById('inst'),st=document.getElementById('st');
+let dp=null;
+const say=t=>{st.textContent=t};
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){
+  addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+if(standalone){location.replace('sumly.html');return}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e});
+addEventListener('appinstalled',()=>{dp=null;say('Installed! Find Sumly on your home screen.')});
+btn.addEventListener('click',async()=>{
+  if(dp){
+    const p=dp;dp=null;
+    try{p.prompt();const c=await p.userChoice;say(c.outcome==='accepted'?'Installing…':'Install cancelled. Tap the button to try again.')}
+    catch(e){say('The install prompt could not open. Use the Chrome menu, then Install app.')}
+    return;
+  }
+  say(ios?'On iPhone: tap Share in Safari, then Add to Home Screen.':'Open this page in Chrome, tap the ⋮ menu, then choose Install app or Add to home screen.');
+});
+})();
+</script>
+</body>
+</html>
